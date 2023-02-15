@@ -1,0 +1,212 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" href="https://www.caringseniorservice.com/hubfs/FA86FBA9-4D0B-4F7D-B765-7419E13BC7E6.jpeg" type="image/icon type">
+    <link rel="stylesheet" href="game.css">
+    <title>Memory Game</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+
+  
+    <div>
+      <div id="global" class="container">
+         <div >
+                 <div class="card" id="01">
+                       <div class="card-header text-lg-center">Information sur le jour</div>
+                           <div class="card-body">
+                                 <form action="game.php" method="post" id="form" target="_blank">
+                                       <div class="row form-group">
+                                            <div class="col align-self-center">
+                                                <label for="firstname" class="form-label">Prénom:</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" name="firstname" id="firstname" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col align-self-center">
+                                                <label for="lastname" class="form-label">Nom:</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" name="lastname" id="lastname" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col align-self-center">
+                                                <label for="sexe" class="form-label">je suis:</label>
+                                            </div>
+                                            <div class="col">
+                                                <label for="">Homme</label>
+                                                <input type="radio" name="sexe" id="homme" value="homme" >
+                                            </div>
+                                            <div class="col">
+                                                <label for="">Femme</label>
+                                                <input type="radio" name="sexe" id="femme" value="femme">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col d-flex justify-content-end">
+                                                    <button id="btn1" type="submit" class="btn btn-primary" onclick="t()">Suivant</button>  
+                                            </div>
+                                        </div>
+                                 </form>
+                            </div>
+                    </div>
+                    <div class="card" id="info"  style="display:none"> 
+                        <div class="card-header text-md-center">informations sur la partie</div>     
+                            <div class="card-body">
+                                <form action="game.php" method="post" id="form" target="_blank"> 
+                                    <div  class="row form-group" >
+                                        
+                                        <div class="col align-self-center">
+                                        <label for="firstname" class="form-label">Difficulté:</label>
+                                        </div>
+                                        <div class="col">
+                                        <select name="nv" id="nv"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                            <option value="nv">selectionner...</option>
+                                            <option value="nv1">Facile</option>
+                                            <option value="nv2">Moyenne</option>
+                                            <option value="nv3"> Difficile</option>
+                                            </select>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col d-flex justify-content-end">
+                                                    <button type="submit" id="btn" class="btn btn-primary" onclick="s()">Commencer</button>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                           </div>
+                     </div> 
+                    <div class="card" id="page_jeux" style="display:none">
+                        <div class="card-header text-md-center">Partie en cours</div>  
+                           <div class="card-body">  
+                                    <div class="data">
+                                        <div class="score">Score : <span class="scoreBoard">0</span></div>
+                                        <div class="click">Click : <span class="clickBoard">0</span></div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="popup">
+                                            <h1 id="text"></h1>
+                                        </div>
+                                    </div>
+                                    <div class="audio">
+                                        <audio controls>
+                                            <source src="#" type="audio/mpeg" id="source"></source>
+                                        </audio>
+                                    </div>
+                                    <div class="row">
+                                         <div class="col d-flex justify-content-end">
+                                                <form action="index.html">
+                                                     <button id="btn2" class="btn btn-danger" onclick="replay()" >Abondonner</button>  
+                                                </form>
+                                         </div>
+                                    </div>
+                          
+                           </div>
+                    </div>
+                       
+                            <div class="card" id="infoo" style="display: none;">
+                                 <div class="card-header text-md-center">Résultat</div>  
+                                        <div class="card-body"> 
+                                                <div>
+                                                    <h1>Félicitation !</h1>
+                                                    <div class="text-center" style="display: flex;"><h2>Votre niveau est </h2>&nbsp;<h2 id="nvcal"></h2></div>
+                                                    <div class="text-center" style="display: flex;">
+                                                        <h2 class="text-md-center" id="sexee"></h2>&nbsp; 
+                                                        <h2 class="text-md-center" id="nom"></h2>&nbsp;
+                                                        <h2 class="text-md-center" id="prenom"></h2>&nbsp;
+                                                        <h2 class="text-md-center" id="nbr"></h2>
+                                                    </div>
+                                               
+                                                </div>
+                                                <table class="table">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Rang</th>
+                                                        <th>Prénom</th>
+                                                        <th>Nom</th>
+                                                        <th>Difficulté</th>
+                                                        <th>Nombre d'essais</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr>
+                                                        <td>1</td>
+                                                        <td id="nomm"></td>
+                                                        <td id="prenomm"></td>
+                                                        <td id="diffi"></td>
+                                                        <td id="nbrr"></td>
+                                                      </tr>
+                                                     
+                                                    </tbody>
+                                                  </table>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        <form action="index.html">
+                                                                <button id="btn2" class="btn btn-success" onclick="replay()" >Recommancer</button>  
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        </div>
+                        </div>
+            </div>
+  
+            
+      
+      
+  </div>
+  
+
+          <script>
+   $(document).ready(function(){ 
+              
+       $("#btn1").click(function(){
+        
+        var name = $('#firstname').val();
+          
+            
+        console.log(name); 
+          var prenom=$("#lastname").val()
+          
+          console.log(prenom);
+          var vale = $("input[name='sexe']:checked").val();
+          console.log(vale);
+          if (name!='' && prenom!=''&&typeof vale != "undefined") {
+            
+            $("#01").remove();
+          $("#info").fadeIn();
+          }          
+          
+    });
+       $("#btn").click(function(){
+        var niveau = $('#nv').val();
+        console.log(niveau);
+        if (niveau !='nv') {
+            console.log("test");
+
+            $("#info").remove();
+           
+            console.log("test");          
+           $("#page_jeux").fadeIn(); 
+         
+           
+        }
+           
+        });
+});
+          </script>
+    
+    <script src="game.js"></script>
+</body>
+</html>
